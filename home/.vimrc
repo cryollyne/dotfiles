@@ -48,9 +48,6 @@ endif
 " latex
 Plug 'lervag/vimtex'
 
-" qml
-Plug 'https://github.com/peterhoeg/vim-qml'                     " qml syntax highlighting
-
 call plug#end()
 
 " }}}
@@ -59,7 +56,7 @@ call plug#end()
 
 augroup setFileTypes
     au!
-    autocmd BufNewFile,BufRead *.qml set filetype=qml
+    autocmd BufNewFile,BufRead *.qml set filetype=qmljs
 augroup END
 
 " }}}
@@ -106,22 +103,14 @@ set conceallevel=0
 
 set autoread
 
+set list listchars=tab:»\ ,trail:~,nbsp:+
+
 augroup filetype_vim
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
     autocmd FileType python setlocal foldmethod=indent
     autocmd BufRead,BufNewFile makefile,Makefile,MakeFile,MAKEFILE setlocal foldmethod=indent
 augroup END
-
-fun! StripTrailingWhitespace()
-    " Don't strip on these filetypes
-    if &ft =~ 'markdown'
-        return
-    endif
-    %s/\([^ ]\)\s\+$/\1/e
-endfun
-
-autocmd BufWritePre * call StripTrailingWhitespace()
 
 " }}}
 
