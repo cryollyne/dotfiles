@@ -40,7 +40,12 @@ nnoremap <C-L> :nohlsearch<CR>:silent<SPACE>!:<CR><C-L>
 
 
 " ctrl-p to fuzzy find a file in new tab
-nnoremap <c-p> :Files<cr>
+if has("nvim")
+    nnoremap <c-p> <cmd>Telescope find_files<cr>
+    nnoremap <leader><c-p> <cmd>Telescope live_grep<cr>
+else
+    nnoremap <c-p> :Files<cr>
+endif
 
 " move line up or down
 vnoremap <c-j> <esc>`>jdd`<Pgv

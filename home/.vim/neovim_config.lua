@@ -190,3 +190,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+-- telescope
+local telescope_actions = require('telescope.actions');
+require('telescope').setup{
+    defaults = {
+        mappings = {
+            i = {
+                ["<c-j>"] = telescope_actions.file_edit,
+            },
+        },
+        layout_config = {
+            horizontal = {
+                preview_cutoff = 80,
+            },
+        },
+    },
+}

@@ -4,12 +4,12 @@ call plug#begin()
 " general purpose plugins
 Plug 'itchyny/lightline.vim'                                    " statusline
 Plug 'https://github.com/tpope/vim-commentary.git'              " comment keybind
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }             " file searching
-Plug 'junegunn/fzf.vim'
 Plug 'camspiers/lens.vim'                                       " window autoresizer
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'wellle/targets.vim'                                       " additional text objects
 if !has('nvim')
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }             " file searching
+    Plug 'junegunn/fzf.vim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}             " code completion and lsp
     Plug 'tmsvg/pear-tree'
 endif
@@ -28,6 +28,7 @@ if has('nvim')
     Plug 'windwp/nvim-autopairs'                                " automatically close brackets and quotes
     Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.0', 'do': 'make install_jsregexp'} " snippet engine
     Plug 'rafamadriz/friendly-snippets'                         " snippet sources
+    Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }    " file searching
 
     Plug 'chentoast/marks.nvim'                                 " show marks on gutter
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}         " multicursor editing
@@ -36,6 +37,7 @@ if has('nvim')
     
     " dependencies
     Plug 'https://github.com/kevinhwang91/promise-async.git'    " dependency of ufo
+    Plug 'nvim-lua/plenary.nvim'                                " dependency of telescope
 endif
 
 
