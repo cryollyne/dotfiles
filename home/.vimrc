@@ -26,7 +26,7 @@ if has('nvim')
     Plug 'williamboman/mason.nvim'                              " managing lsp
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " syntax highlighting
     Plug 'windwp/nvim-autopairs'                                " automatically close brackets and quotes
-    Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.0', 'do': 'make install_jsregexp'} " snippet engine
+    Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} " snippet engine
     Plug 'rafamadriz/friendly-snippets'                         " snippet sources
     Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }    " file searching
 
@@ -59,6 +59,7 @@ call plug#end()
 augroup setFileTypes
     au!
     autocmd BufNewFile,BufRead *.qml set filetype=qmljs
+    autocmd BufNewFile,BufRead *.vert,*.frag,*.tesc,*.tese,*.geom,*.comp set filetype=glsl
 augroup END
 
 " }}}

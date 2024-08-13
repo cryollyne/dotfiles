@@ -22,5 +22,12 @@ backup() (
     done
 )
 
+run_scripts() (
+    for s in ./scripts/*.sh; do
+        bash $s
+    done
+)
+
 backup
 install
+run_scripts

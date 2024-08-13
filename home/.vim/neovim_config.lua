@@ -80,8 +80,10 @@ require('ufo').setup({
 })
 
 --luasnip
-require("luasnip/loaders/from_vscode").lazy_load()
+require("luasnip.loaders.from_vscode").lazy_load()
 local luasnip = require("luasnip")
+
+
 
 -- cmp
 local cmp = require'cmp'
@@ -141,7 +143,15 @@ require("mason-lspconfig").setup_handlers {
 
 -- nvim lsp
 local lspconfig = require('lspconfig')
-lspconfig.rust_analyzer.setup {}
+lspconfig.rust_analyzer.setup {
+    settings = {
+        ['rust-analyzer'] = {
+            checkOnSave = {
+                command = 'clippy'
+            }
+        }
+    }
+}
 lspconfig.ccls.setup {}
 lspconfig.hls.setup {}
 lspconfig.tsserver.setup {}
