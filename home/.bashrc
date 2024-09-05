@@ -22,7 +22,10 @@ fi
 
 PS1="\[\e[1;36m\]\u\[\e[0m\]@\[\e[1;36m\]\h \[\e[1;35m\]\W \[\e[0m\]$ "
 PS2='$( getPS2 () { local ps a; ps="$(perl -pe "s|\\\\\[.*?\\\\\]||g" <<<"${PS1}")"; echo "${ps@P}" | sed "s/\\x1B\\[[0-9;]\\{1,\\}[A-Za-z]//g;s/[]//g;s/./ /g";}; getPS2)    '
-. "$HOME/.cargo/env"
+
+if [ -d "$HOME/.cargo/" ]; then
+    . "$HOME/.cargo/env"
+fi
 
 HISTCONTROL=ignoreboth
 export LC_ALL="C.UTF-8"

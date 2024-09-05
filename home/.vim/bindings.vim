@@ -1,9 +1,11 @@
 let mapleader = "\<SPACE>"
 let maplocalleader = ","
 
-" forwards delete
-inoremap <c-n> <right><BS>
-inoremap <c-p> <right><esc>dwi
+augroup lineTerminator
+    au!
+    autocmd FileType * nnoremap <buffer> _ A;<esc>
+    autocmd FileType tex nnoremap <buffer> _ A<space>\\<esc>
+augroup END
 
 nnoremap <c-u> <c-u>zz
 nnoremap <c-d> <c-d>zz

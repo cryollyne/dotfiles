@@ -154,11 +154,9 @@ lspconfig.rust_analyzer.setup {
 }
 lspconfig.ccls.setup {}
 lspconfig.hls.setup {}
-lspconfig.tsserver.setup {}
 lspconfig.svelte.setup {}
 lspconfig.lua_ls.setup {}
 lspconfig.vimls.setup {}
-lspconfig.glsl_analyzer.setup {}
 lspconfig.csharp_ls.setup {
     cmd = { "/home/patrick/.dotnet/tools/csharp-ls" }
 }
