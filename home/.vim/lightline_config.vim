@@ -5,7 +5,7 @@ let g:lightline = {
             \   'left': [
             \       [ 'mode', 'paste' ],
             \       [ 'readonly', 'filename' ],
-            \       [ 'coc_error', 'coc_warn' ],
+            \       [ 'lsp_error', 'lsp_warn' ],
             \       [ 'git_info' ],
             \   ],
             \   'right':[
@@ -28,8 +28,8 @@ let g:lightline = {
             \   ]
             \ },
             \ 'component_expand': {
-            \   'coc_error': 'LightlineCocError',
-            \   'coc_warn': 'LightlineCocWarn',
+            \   'lsp_error': 'LightlineError',
+            \   'lsp_warn': 'LightlineWarn',
             \ },
             \ 'component_function': {
             \   'filename': 'LightlineFileName',
@@ -37,8 +37,8 @@ let g:lightline = {
             \   'git_info': 'LightlineGitInfo',
             \ },
             \ 'component_type': {
-            \   'coc_error': 'error',
-            \   'coc_warn': 'warning',
+            \   'lsp_error': 'error',
+            \   'lsp_warn': 'warning',
             \ }
             \ }
 
@@ -51,6 +51,21 @@ function! LightlineCocError()
     return ''
 endfunction
 
+function! LightlineNvimError()
+    let count = luaeval('table.getn(vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR }))')
+    if (count == 0)
+        return ''
+    endif
+    return count . 'E'
+endfunction
+
+function! LightlineError()
+    if !has('nvim')
+        return LightlineCocError()
+    endif
+    return LightlineNvimError()
+endfunction
+
 
 function! LightlineCocWarn()
     let info = get(b:, 'coc_diagnostic_info', {})
@@ -59,6 +74,21 @@ function! LightlineCocWarn()
         return info['warning'] . 'W'
     endif
     return ''
+endfunction
+
+function! LightlineNvimWarn()
+    let count = luaeval('table.getn(vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN }))')
+    if (count == 0)
+        return ''
+    endif
+    return count . 'W'
+endfunction
+
+function LightlineWarn()
+    if !has('nvim')
+        return LightlineCocWarn()
+    endif
+    return LightlineNvimWarn()
 endfunction
 
 function! LightlineFileName()
@@ -72,13 +102,23 @@ function! LightlineGitInfo()
 endfunction
 
 function! LightlineGitBlame()
-  let blame = get(b:, 'coc_git_blame', '')
-  return blame
-  " return winwidth(0) > 120 ? blame : ''
+    if !has('nvim')
+        let blame = get(b:, 'coc_git_blame', '')
+        return blame
+        " return winwidth(0) > 120 ? blame : ''
+    endif
+    let line = line('.')
+    let filename = expand('%:p')
+    let dir = expand('%:h')
+    let blame = system("(cd " . dir . ' && git blame -L' . line . ',' . line . ' ' . filename . ")")
+    let hash = split(blame, ' ')[0]
+    let message = trim(system("(cd " . dir . " && git log -n1 --format='(%ar by %cn) %h %s' " . hash . ") 2>/dev/null"))
+    return message == '' ? '[No Blame Info]' : message
 endfunction
 
 augroup lightline#coc
   autocmd!
   autocmd User CocDiagnosticChange call lightline#update()
   autocmd User CocStatusChange call lightline#update()
+  autocmd User DiagnosticChanged call lightline#update()
 augroup END

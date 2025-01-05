@@ -11,11 +11,12 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 export GOPATH="$XDG_DATA_HOME/go"
 export EDITOR="/usr/bin/vim"
-export PATH="$PATH:~/.local/bin/:$HOME/.ghcup/bin/"
+export PATH="$PATH:~/.local/bin/:$HOME/.ghcup/bin/:/opt/shader-slang-bin/bin/"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+bind 'set completion-ignore-case on'
 if [[ -r /usr/share/bash-completion/bash_completion ]]; then
   . /usr/share/bash-completion/bash_completion
 fi
@@ -23,7 +24,7 @@ fi
 PS1="\[\e[1;36m\]\u\[\e[0m\]@\[\e[1;36m\]\h \[\e[1;35m\]\W \[\e[0m\]$ "
 PS2='$( getPS2 () { local ps a; ps="$(perl -pe "s|\\\\\[.*?\\\\\]||g" <<<"${PS1}")"; echo "${ps@P}" | sed "s/\\x1B\\[[0-9;]\\{1,\\}[A-Za-z]//g;s/[]//g;s/./ /g";}; getPS2)    '
 
-if [ -d "$HOME/.cargo/" ]; then
+if [ -e "$HOME/.cargo/env" ]; then
     . "$HOME/.cargo/env"
 fi
 

@@ -147,16 +147,16 @@ lspconfig.rust_analyzer.setup {
     settings = {
         ['rust-analyzer'] = {
             checkOnSave = {
-                command = 'clippy'
+                command = 'clippy',
             }
         }
-    }
+    },
 }
-lspconfig.ccls.setup {}
 lspconfig.hls.setup {}
 lspconfig.svelte.setup {}
 lspconfig.lua_ls.setup {}
 lspconfig.vimls.setup {}
+lspconfig.slangd.setup {}
 lspconfig.csharp_ls.setup {
     cmd = { "/home/patrick/.dotnet/tools/csharp-ls" }
 }
@@ -195,6 +195,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>f', function()
       vim.lsp.buf.format { async = true }
     end, opts)
+    vim.lsp.inlay_hint.enable()
+  end,
+})
+
+vim.api.nvim_create_autocmd('DiagnosticChanged', {
+  callback = function(args)
+      vim.api.nvim_exec([[
+          doautocmd User DiagnosticChanged
+      ]], false)
   end,
 })
 

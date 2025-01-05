@@ -59,6 +59,7 @@ call plug#end()
 augroup setFileTypes
     au!
     autocmd BufNewFile,BufRead *.qml set filetype=qmljs
+    autocmd BufNewFile,BufRead *.slang set filetype=shaderslang
     autocmd BufNewFile,BufRead *.vert,*.frag,*.tesc,*.tese,*.geom,*.comp set filetype=glsl
 augroup END
 
@@ -113,6 +114,18 @@ augroup filetype_vim
     autocmd FileType vim setlocal foldmethod=marker
     autocmd FileType python setlocal foldmethod=indent
     autocmd BufRead,BufNewFile makefile,Makefile,MakeFile,MAKEFILE setlocal foldmethod=indent
+augroup END
+
+
+function! DocumentMode()
+    set textwidth=80
+    set colorcolumn=80
+    set spell
+endfunction
+
+augroup FiletypeSettings
+    autocmd!
+    autocmd FileType tex,markdown call DocumentMode()
 augroup END
 
 " }}}
