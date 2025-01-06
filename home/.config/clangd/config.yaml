@@ -1,0 +1,51 @@
+InlayHints:
+  BlockEnd: No
+  Designators: Yes
+  Enabled: Yes
+  ParameterNames: Yes
+  DeducedTypes: Yes
+  TypeNameLimit: 24
+SemanticTokens:
+  DisabledKinds:
+    - Variable
+    - LocalVariable
+    - StaticField
+    - Parameter
+    - StaticMethod
+    - Function
+    - Method
+    - Field
+    - Class
+    - Interface
+    - Enum
+    - EnumConstant
+    - Type
+    - Typedef
+    - Primitive
+    - TemplateParameter
+    - Namespace
+    - Macro
+    - Modifier
+    - Operator
+    - Bracket
+    - Label
+    - InactiveCode
+  DisabledModifiers:
+    - Declaration
+    - Definition
+    - Deprecated
+    - Readonly
+    - Static
+    - Abstract
+    - DefaultLibrary
+    - Deduced
+    - Virtual
+    - DependentName
+    - UsedAsMutableReference
+    - UsedAsMutablePointer
+    - ConstructorOrDestructor
+    - UserDefined
+    - FunctionScope
+    - ClassScope
+    - FileScope
+    - GlobalScope
