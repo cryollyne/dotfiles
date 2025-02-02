@@ -10,8 +10,15 @@ export XDG_DATA_HOME="$HOME/.local/share"
 
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 export GOPATH="$XDG_DATA_HOME/go"
-export EDITOR="/usr/bin/vim"
 export PATH="$PATH:~/.local/bin/:$HOME/.ghcup/bin/:/opt/shader-slang-bin/bin/"
+
+if command -v nvim &> /dev/null; then
+    export EDITOR="/usr/bin/nvim"
+elif command -v vim &> /dev/null; then
+    export EDITOR="/usr/bin/vim"
+else
+    export EDITOR="/usr/bin/vi"
+fi
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
