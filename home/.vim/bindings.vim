@@ -45,6 +45,8 @@ nnoremap <C-L> :nohlsearch<CR>:silent<SPACE>!:<CR><C-L>
 if has("nvim")
     nnoremap <c-p> <cmd>Telescope find_files<cr>
     nnoremap <leader><c-p> <cmd>Telescope live_grep<cr>
+    nnoremap gu <cmd>Telescope undo<cr>
+    nnoremap gb <cmd>Telescope buffers<cr>
 else
     nnoremap <c-p> :Files<cr>
 endif

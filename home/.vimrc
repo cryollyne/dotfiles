@@ -29,15 +29,17 @@ if has('nvim')
     Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} " snippet engine
     Plug 'rafamadriz/friendly-snippets'                         " snippet sources
     Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }    " file searching
+    Plug 'debugloop/telescope-undo.nvim'                        " undo tree
 
     Plug 'chentoast/marks.nvim'                                 " show marks on gutter
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}         " multicursor editing
     Plug 'https://github.com/kevinhwang91/nvim-ufo.git'         " improved folding visuals
-    " Plug 'jbyuki/instant.nvim'                                  " collaborative editing
-    
+    Plug 'azratul/live-share.nvim'                              " collaborative editing
+
     " dependencies
     Plug 'https://github.com/kevinhwang91/promise-async.git'    " dependency of ufo
     Plug 'nvim-lua/plenary.nvim'                                " dependency of telescope
+    Plug 'jbyuki/instant.nvim'                                  " dependency of live-share
 endif
 
 
@@ -49,6 +51,9 @@ endif
 
 " latex
 Plug 'lervag/vimtex'
+
+" typst
+Plug 'chomosuke/typst-preview.nvim', {'tag': 'v1.*'}
 
 call plug#end()
 
@@ -172,6 +177,14 @@ let g:vimtex_view_general_viewer = 'okular'
 let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 
 let g:vimtex_compiler_method = 'latexmk'
+
+let g:vimtex_delim_toggle_mod_list = [
+            \ ['\big', '\big'],
+            \ ['\Big', '\Big'],
+            \ ['\bigg', '\bigg'],
+            \ ['\Bigg', '\Bigg'],
+            \]
+
 " let g:vimtex_compiler_latexmk_engines = '-pdf'
 " }}}
 

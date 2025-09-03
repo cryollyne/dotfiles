@@ -40,8 +40,12 @@ export LC_ALL="C.UTF-8"
 
 
 set -o vi
+bind -m vi-command 'Control-l: clear-screen'
+bind -m vi-insert 'Control-l: clear-screen'
+
 alias make="make -j$(nproc)"
 alias vi='vim'
+alias man-fzf='man -k . | fzf | sed -E '"'"'s/([^(]*) \(([^)]*)\).*/\1.\2/'"'"' | xargs man'
 
 if command -v nvim &> /dev/null; then
     alias vim='nvim'

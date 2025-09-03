@@ -108,7 +108,7 @@ cmp.setup({
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<c-i>'] = cmp.mapping(function(fallback)
+        ['<tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.confirm({ select = true })
             elseif luasnip.expand_or_jumpable() then
@@ -124,39 +124,37 @@ cmp.setup({
         { name = 'buffer' },
         { name = 'path' },
     }),
-    experimental = {
-        ghost_text = true
-    }
 })
+
+-- typst preview
+require 'typst-preview'.setup {
+    dependencies_bin = { ['tinymist'] = 'tinymist' },
+}
 
 -- mason
 require("mason").setup()
 require("mason-lspconfig").setup()
-require("mason-lspconfig").setup_handlers {
-    -- The first entry (without a key) will be the default handler
-    -- and will be called for each installed server that doesn't have
-    -- a dedicated handler.
-    function (server_name) -- default handler (optional)
-        require("lspconfig")[server_name].setup {}
-    end,
-}
 
 -- nvim lsp
 local lspconfig = require('lspconfig')
 lspconfig.rust_analyzer.setup {
-    settings = {
-        ['rust-analyzer'] = {
-            checkOnSave = {
-                command = 'clippy',
-            }
-        }
-    },
+    -- settings = {
+    --     ['rust-analyzer'] = {
+    --         checkOnSave = true,
+    --         check = {
+    --             command = 'clippy',
+    --         }
+    --     }
+    -- },
 }
 lspconfig.hls.setup {}
 lspconfig.svelte.setup {}
 lspconfig.lua_ls.setup {}
 lspconfig.vimls.setup {}
 lspconfig.slangd.setup {}
+lspconfig.qmlls.setup {
+    cmd = { "qmlls6" }
+}
 lspconfig.csharp_ls.setup {
     cmd = { "/home/patrick/.dotnet/tools/csharp-ls" }
 }
@@ -222,4 +220,17 @@ require('telescope').setup{
             },
         },
     },
+    extensions = {
+        undo = {},
+    },
 }
+require('telescope').load_extension('undo')
+
+-- live share
+vim.g.instant_username = "patrick"
+require("live-share").setup({
+    port_internal = 9876, -- The local port to be used for the live share connection
+    max_attempts = 20, -- Maximum number of attempts to read the URL from service(serveo.net or localhost.run), every 250 ms
+    service_url = "/tmp/service.url", -- Path to the file where the URL from serveo.net will be stored
+    service = "nokey@localhost.run", -- Service to use, options are serveo.net or localhost.run
+})
